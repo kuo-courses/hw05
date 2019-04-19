@@ -1,8 +1,0 @@
-there is a really strange bug in the runkickt function
-
-for some reason, when ode45 is used for the first time to simulate fkickt, the result is erroneuous (extremely high forces and accelerations)
-
-this is not due to the parameter value for tendon slack length, because running a dummy simulation first and the simulation for the 
-first tendon slack length (i.e. equal to lceopt) later resolves the issue
-
-I have no idea why there is this problem when first running ode45, but suspect it has something do to with global variables..
