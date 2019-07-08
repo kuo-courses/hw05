@@ -1,0 +1,18 @@
+% changes made by Tim van der Zee on 2019-04-19:
+% 1: discrepancy in use of lopt
+% when ode45 is used for the first time to simulate fkickt in the old version of this function, 
+% the result is erroneuous (extremely high forces and accelerations)
+% this is not due to the parameter value for tendon slack length, because running a dummy simulation first and the simulation for the 
+% first tendon slack length (i.e. equal to lceopt) later resolves the issue
+% I found out that this is due to a discrepancy in the use of the variable named "lceopt"
+% lopt is a global variable defined in line 23 of the old version where it has meters as unit
+% however, it was also used in the subfunction "fl" but here it should have been unitless (and equal to 1)
+% upon changing the name of lopt in the subfunction "fl" into "lceoptrel", and defining that as 1,
+% the results of this simulation change considerably
+% it is now the largest tendon slack length that results in the highest angular velocity (i.e. 10*lopt)
+
+% 2: redefining lslack when recomputing forces
+% when calculating the forces (Fm1, Fm3, Fm10) in the old version, lslack was not redefined
+% therfore, the latest version was used (i.e. 10*lopt)
+% this is wrong, because it should be lopt, 3*lopt and 10*lopt for Fm1, Fm3 and Fm10 respectively
+
